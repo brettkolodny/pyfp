@@ -31,14 +31,11 @@ The Option object represents two states: Some, the value is there, and empty, th
 For example:
 ```python
 def first_occurence(ls, element):
-
     for i in range(len(ls)):
-
         if ls[i] == element:
             return i
 
     return None
-
 
 ls = [1, 2, 3, 4] index = first_occurence(ls, 5) ls[index] = 6
 ```
@@ -47,16 +44,14 @@ In this example you would have to remember to check to see if index is None befo
 
 With Option:
 ```python
-    def first_occurence(ls, element):
+def first_occurence(ls, element):
+    for i in range(len(ls)):
+        if ls[i] == element:
+            return Option.some(i)
 
-        for i in range(len(ls)):
+    return Option.empty()
 
-            if ls[i] == element:
-                return Option.some(i)
-
-        return Option.empty()
-
-    ls = [1, 2, 3, 4] index = first_occurence(ls, 5) ls[index.unwrap()] = 6
+ls = [1, 2, 3, 4] index = first_occurence(ls, 5) ls[index.unwrap()] = 6
 ```
 
 With Option, forgetting to unwrap a value will result in an error when it is used reminding you to account for the possibility that the value does not exist.
