@@ -1,11 +1,9 @@
 from pyfp import __version__
-from pyfp.pipe import Pipe
-from pyfp.option import Option
-
-help(Pipe)
+from pyfp import Pipe
+from pyfp import Option
 
 def test_version():
-    assert __version__ == '0.1.0'
+    assert __version__ == '0.1.1'
 
 def test_option_pipe():
 
