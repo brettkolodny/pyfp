@@ -38,6 +38,20 @@ class Pipe(Generic[T]):
 
     @min_arguments(1)
     def to_first(self, *args) -> "Pipe":
+        """Executes a new operation on the Pipe's value in the first position.
+        
+        Args:
+            1st: 
+                The operation to be performed. Must be either callable or a string containing the name of the method to be performed.
+            2nd..nth:
+                Arguments needed for the operation besides the value of the Pipe.
+
+        Returns:
+            The Pipe being operated on with an updated value.
+
+        Raises:
+            TypeError: Invalid argument: 1st argument must be either be a str or callable.
+        """
         func = args[0]
         params = args[1:]
 
