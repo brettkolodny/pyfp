@@ -11,7 +11,7 @@ class Pipe(Generic[T]):
         self._val = val
 
     @min_arguments(1)
-    def to(self, *args: tuple) -> "Pipe":
+    def to(self, *args) -> "Pipe":
         """Executes a new operation on the Pipe's value.
         
         Args:
@@ -29,15 +29,20 @@ class Pipe(Generic[T]):
         func = args[0]
         params = args[1:]
 
-        # Methods passed as strings
-        if type(func) == str:
-            method = getattr(self._val, func)
-            self._val = method(*params)
-
-        # Functions or methods passed in Object.method format
-        elif callable(func):
+        if callable(func):
             self._val = func(*params, self._val)
+        else:
+            raise TypeError("Invalid argument: 1st argument must be either be a str or callable.")
+        
+        return self
 
+    @min_arguments(1)
+    def to_first(self, *args) -> "Pipe":
+        func = args[0]
+        params = args[1:]
+
+        if callable(func):
+            self._val = func(self._val, *params)
         else:
             raise TypeError("Invalid argument: 1st argument must be either be a str or callable.")
         

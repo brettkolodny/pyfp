@@ -14,10 +14,15 @@ def test_method_pipe():
 
     assert pipe_res == nonpipe_res
 
-def test_method_string_pipe():
-    pipe_res = Pipe("hello").to("upper").to(list).get()
+def test_method_front_pipe():
+    foo = {
+        1: 2,
+        3: 4,
+        5: 6
+    }
 
-    nonpipe_res = list("hello".upper())
+    pipe_res = Pipe(foo).to_first(dict.get, 3).get()
+    nonpipe_res = foo.get(3)
 
     assert pipe_res == nonpipe_res
 
